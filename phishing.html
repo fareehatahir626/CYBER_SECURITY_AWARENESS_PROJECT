@@ -1,0 +1,406 @@
+<!-- phishing.html - Enhanced with Comprehensive Information, Interactive Images (One Picture Only), and Advanced Button Styling with Click Animations -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Awareness: Decode the Matrix</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        body {
+            font-family: 'Orbitron', monospace;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            color: #00ffff;
+            min-height: 100vh;
+        }
+        h1, h2, h3 {
+            color: #00ffff;
+            text-shadow: 0 0 15px #00ffff;
+        }
+        section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px #00ffff;
+            border: 2px solid #00ffff;
+        }
+        .quiz button {
+            margin: 5px;
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border: 2px solid #00ffff;
+            color: #000;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 10px #00ffff, inset 0 0 10px rgba(255, 255, 255, 0.1);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        .quiz button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        .quiz button:hover::before {
+            left: 100%;
+        }
+        .quiz button:hover {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #fff;
+            box-shadow: 0 0 25px #ff00ff, inset 0 0 20px rgba(255, 255, 255, 0.2);
+            transform: scale(1.1) translateY(-2px);
+            border-color: #ff00ff;
+            text-shadow: 0 0 10px #fff;
+        }
+        .quiz button:active {
+            transform: scale(1.05) translateY(0);
+            box-shadow: 0 0 15px #ff00ff, inset 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        .quiz button.clicked {
+            animation: clickPulse 0.6s ease-out;
+        }
+        @keyframes clickPulse {
+            0% { transform: scale(1); box-shadow: 0 0 10px #00ffff; }
+            50% { transform: scale(1.2); box-shadow: 0 0 30px #ff00ff; }
+            100% { transform: scale(1); box-shadow: 0 0 10px #00ffff; }
+        }
+        .message {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+        .links a {
+            display: block;
+            margin: 5px;
+            padding: 12px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 8px;
+            text-decoration: none;
+            color: #00ffff;
+            border: 1px solid #00ffff;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        .links a:hover {
+            background: rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 20px #00ffff;
+        }
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #00ffff;
+            border: 1px solid #00ffff;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        nav a:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 20px #00ffff;
+        }
+        .interactive-img {
+    cursor: pointer;
+    border: 2px solid #00ffff;
+    max-height: 500px;      /* limits image height */
+    width: auto;            /* keeps aspect ratio */
+    object-fit: contain;    /* ensures full image fits inside container */
+}
+.flex-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;        /* space between text and image */
+    flex-wrap: wrap;  /* responsive on small screens */
+}
+
+.text-content {
+    flex: 2 1 400px;  /* text takes more space */
+}
+
+.image-container {
+    flex: 1 1 300px;  /* image takes less space */
+    text-align: center;
+}
+
+.interactive-img {
+    max-height: 500px;   /* limits image height */
+    width: auto;         /* maintains aspect ratio */
+    object-fit: contain; /* ensures full image fits inside container */
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #00ffff;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.interactive-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #ff00ff;
+    border-color: #ff00ff;
+}
+.flex-container {
+    display: flex;
+    align-items: flex-start; /* aligns top of text and image */
+    gap: 30px;               /* space between text and image */
+    flex-wrap: wrap;          /* responsive on small screens */
+}
+
+.text-content {
+    flex: 2 1 400px;  /* text takes more space */
+}
+
+.image-container {
+    flex: 1 1 300px;  /* image takes less space */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* aligns image with top of text */
+}
+
+.interactive-img {
+    max-width: 100%;
+    height: auto;        /* maintains aspect ratio */
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #00ffff;
+    cursor: pointer;
+    object-fit: contain; /* makes image fit container without cutting */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.interactive-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #ff00ff;
+    border-color: #ff00ff;
+}
+.flex-container {
+    display: flex;
+    align-items: flex-start; /* aligns top of text and image */
+    gap: 30px;               /* space between text and image */
+    flex-wrap: wrap;          /* responsive on small screens */
+}
+
+.text-content {
+    flex: 2 1 400px;  /* text takes more space */
+}
+
+.image-container {
+    flex: 1 1 300px;  /* image takes less space */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* aligns image with top of text */
+}
+
+.interactive-img {
+    max-width: 100%;
+    height: auto;        /* maintains aspect ratio */
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #00ffff;
+    cursor: pointer;
+    object-fit: contain; /* makes image fit container without cutting */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.interactive-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #ff00ff;
+    border-color: #ff00ff;
+}
+
+
+        .progress {
+            width: 100%;
+            height: 20px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: #00ffff;
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        .score {
+            font-size: 1.2em;
+            color: #ff00ff;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #00ffff;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #00ffff;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .interactive-img {
+            cursor: pointer;
+            border: 2px solid #00ffff;
+        }
+        .interactive-img:hover {
+            border-color: #ff00ff;
+        }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html">Home</a></nav>
+    <h1>Phishing Awareness: Decode the Matrix</h1>
+    
+   <section>
+    <h2>What is Phishing?</h2>
+    <div class="flex-container">
+        <div class="text-content">
+            <p>Phishing is a cyber attack where attackers disguise themselves as trustworthy entities to trick individuals into revealing sensitive information like passwords, credit card numbers, or personal data. It's like a digital fishing expedition, casting bait to hook unsuspecting victims. According to the FBI, phishing attacks cost billions annually and are one of the most common cyber threats.</p>
+            <h3>Types of Phishing</h3>
+            <ul>
+                <li><strong>Email Phishing:</strong> Unsolicited emails with malicious links or attachments.</li>
+                <li><strong>Spear Phishing:</strong> Targeted attacks using personal information to make the scam seem legitimate.</li>
+                <li><strong>Vishing (Voice Phishing):</strong> Phone calls pretending to be from banks or authorities.</li>
+                <li><strong>Smishing (SMS Phishing):</strong> Text messages with fraudulent links.</li>
+                <li><strong>Pharming:</strong> Redirecting users from legitimate sites to fake ones via DNS manipulation.</li>
+            </ul>
+            <h3>Common Signs of Phishing</h3>
+            <ul>
+                <li>Urgent language: "Act now or your account will be suspended!"</li>
+                <li>Suspicious URLs: Misspellings like "paypa1.com" instead of "paypal.com".</li>
+                <li>Unexpected attachments or links.</li>
+                <li>Requests for personal information.</li>
+                <li>Sender's email doesn't match the claimed organization.</li>
+            </ul>
+            <h3>Prevention Tips</h3>
+            <ul>
+                <li>Verify URLs: Always check for HTTPS and hover over links.</li>
+                <li>Use multi-factor authentication (MFA).</li>
+                <li>Install antivirus software with phishing protection.</li>
+                <li>Educate yourself and report suspicious activity to authorities like the FTC or your IT department.</li>
+                <li>Never share sensitive info via unsolicited requests.</li>
+            </ul>
+            <p>Real-world example: In 2023, a massive phishing campaign impersonated Microsoft, tricking users into downloading malware that encrypted files for ransom.</p>
+        </div>
+        <div class="image-container">
+            <img src="phishing.png" alt="Phishing Email Example" class="interactive-img" onclick="alert('This is a fake email! Notice the suspicious link.')">
+        </div>
+    </div>
+</section>
+
+    
+    <section>
+        <h2>Fake and Real Links</h2>
+        <p>Decode the matrix: Real links glow with HTTPS legitimacy. Fake ones hide in shadows with misspellings. Hover over links to inspect them before clicking. Tools like URL scanners can help verify legitimacy.</p>
+        <div class="links">
+            <a href="#" onclick="alert('Fake link detected!')">Fake: https://secure-bank-login.com</a>
+            <a href="#" onclick="alert('Real link!')">Real: https://www.bank.com/login</a>
+            <a href="#" onclick="alert('Fake! Notice the extra \'s\'')">Fake: https://paypal-support.com</a>
+            <a href="#" onclick="alert('Real! Official domain')">Real: https://www.paypal.com</a>
+        </div>
+    </section>
+    
+    <section>
+        <h2>Interactive Quiz</h2>
+        <p>Test your knowledge with these questions. Each correct answer boosts your score!</p>
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+        <div class="score">Score: <span id="score">0</span>/5</div>
+        <div id="quizContent">
+            <p id="question">Question 1: Is "Update your password urgently!" a phishing sign?</p>
+            <button id="yesBtn" onclick="checkAnswer('yes')">Yes</button>
+            <button id="noBtn" onclick="checkAnswer('no')">No</button>
+        </div>
+        <div id="result" class="message"></div>
+    </section>
+
+    <section>
+    <h2>Phishing Simulator</h2>
+    <p>
+        Ready to test your skills in a real-world scenario?  
+        Launch the interactive phishing simulator and see how well you can detect scams under pressure.
+    </p>
+
+    <div class="links">
+        <a href="phish.html" target="_blank">
+            🚨 Launch Advanced Phishing Simulator 🚨
+        </a>
+    </div>
+</section>
+    
+    <script>
+        let score = 0;
+        let quizStep = 0;
+        const questions = [
+            { q: "Question 1: Is 'Update your password urgently!' a phishing sign?", a: 'yes', exp: 'Correct! Urgency is a red flag.' },
+            { q: "Question 2: Should you click links in unsolicited emails?", a: 'no', exp: 'Wrong. Never click suspicious links.' },
+            { q: "Question 3: Is HTTPS a sign of a secure site?", a: 'yes', exp: 'Correct! HTTPS encrypts data.' },
+            { q: "Question 4: Do phishers use real-looking emails?", a: 'yes', exp: 'Correct! They spoof legitimate senders.' },
+            { q: "Question 5: Is reporting phishing a good practice?", a: 'yes', exp: 'Correct! It helps authorities track threats.' }
+        ];
+        
+        function checkAnswer(ans) {
+            const resultDiv = document.getElementById('result');
+            if (ans === questions[quizStep].a) {
+                score++;
+                resultDiv.textContent = questions[quizStep].exp;
+            } else {
+                resultDiv.textContent = 'Incorrect. ' + questions[quizStep].exp;
+            }
+            document.getElementById('score').textContent = score;
+            document.getElementById('progressBar').style.width = (score / 5) * 100 + '%';
+            quizStep++;
+            if (quizStep < 5) {
+                setTimeout(() => {
+                    document.getElementById('question').textContent = questions[quizStep].q;
+                    resultDiv.textContent = '';
+                }, 2000);
+            } else {
+                resultDiv.textContent += ' Quiz complete! Your final score: ' + score + '/5';
+                // Disable buttons after completion
+                document.getElementById('yesBtn').disabled = true;
+                document.getElementById('noBtn').disabled = true;
+            }
+        }
+        
+        // Add click animation to buttons
+        document.querySelectorAll('.quiz button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.add('clicked');
+                setTimeout(() => {
+                    this.classList.remove('clicked');
+                }, 600); // Match animation duration
+            });
+        });
+    </script>
+</body>
+</html>

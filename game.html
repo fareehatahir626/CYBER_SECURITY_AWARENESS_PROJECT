@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Access Choice</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-container {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #00d4ff;
+            text-shadow: 0 0 10px #00d4ff;
+        }
+
+        .progress {
+            width: 100%;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #0099cc);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .score, .round {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .scenario {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        @media (min-width: 600px) {
+            .options { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        button {
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: #333;
+            color: #fff;
+            transition: 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button:hover { background: #00d4ff; transform: scale(1.05); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .feedback {
+            margin-top: 20px;
+            min-height: 50px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .correct { color: #4caf50; }
+        .incorrect { color: #f44336; }
+
+        .loading {
+            display: none;
+            color: #00d4ff;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="game-container">
+    <h1>🔒 Secure Access Choice</h1>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="score">Score: <span id="score">0</span></div>
+    <div class="round" id="round">Round 1</div>
+
+    <p class="scenario" id="scenario"></p>
+
+    <div class="options" id="options"></div>
+
+    <div class="loading" id="loading">Loading next round...</div>
+    <div class="feedback" id="feedback"></div>
+
+    <button id="next" style="display:none;" onclick="nextRound()">Next Round ➡️</button>
+</div>
+
+<script>
+/* DOM */
+const scoreEl = document.getElementById('score');
+const roundEl = document.getElementById('round');
+const scenarioEl = document.getElementById('scenario');
+const optionsEl = document.getElementById('options');
+const feedbackEl = document.getElementById('feedback');
+const nextBtn = document.getElementById('next');
+const loadingEl = document.getElementById('loading');
+const progressBar = document.getElementById('progressBar');
+
+/* STATE */
+let score = 0;
+let round = 1;
+const maxRounds = 3;
+
+/* DATA */
+const scenarios = [
+    {
+        text: "You've encountered a security checkpoint with three options to gain access. Choose wisely—only one is truly secure and authorized!",
+        options: [
+            { text: "Tailgate: Following closely behind someone else.", icon: "🚪", correct: false },
+            { text: "In Use Badge: Borrowing someone else's badge.", icon: "🆔", correct: false },
+            { text: "Biometric Scan: Unique physical verification.", icon: "👤", correct: true }
+        ]
+    },
+    {
+        text: "At a high-security lab, which method is safest?",
+        options: [
+            { text: "Shared Password", icon: "🔑", correct: false },
+            { text: "RFID Card with encryption", icon: "💳", correct: true },
+            { text: "Shoulder Surfing", icon: "👀", correct: false }
+        ]
+    },
+    {
+        text: "Final challenge: Accessing a server room.",
+        options: [
+            { text: "Keylogger Device", icon: "⌨️", correct: false },
+            { text: "Two-Factor Authentication", icon: "📱", correct: true },
+            { text: "Phishing Email Link", icon: "📧", correct: false }
+        ]
+    }
+];
+
+/* FUNCTIONS */
+function renderRound() {
+    const current = scenarios[round - 1];
+
+    roundEl.textContent = `Round ${round}`;
+    scenarioEl.textContent = current.text;
+    optionsEl.innerHTML = '';
+    feedbackEl.innerHTML = '';
+    nextBtn.style.display = 'none';
+
+    current.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.innerHTML = `<span>${opt.icon}</span> ${opt.text}`;
+        btn.onclick = () => choose(idx);
+        optionsEl.appendChild(btn);
+    });
+
+    optionsEl.style.display = 'grid';
+}
+
+function choose(index) {
+    const option = scenarios[round - 1].options[index];
+    [...optionsEl.children].forEach(btn => btn.disabled = true);
+
+    if (option.correct) {
+        score += 10;
+        feedbackEl.innerHTML = `<span class="correct">✅ Correct!</span>`;
+    } else {
+        feedbackEl.innerHTML = `<span class="incorrect">❌ Incorrect!</span>`;
+    }
+
+    scoreEl.textContent = score;
+    progressBar.style.width = `${(round / maxRounds) * 100}%`;
+    nextBtn.style.display = 'block';
+}
+
+function nextRound() {
+    loadingEl.style.display = 'block';
+    optionsEl.style.display = 'none';
+
+    setTimeout(() => {
+        round++;
+
+        if (round > maxRounds) {
+            roundEl.textContent = 'Game Over!';
+            scenarioEl.textContent = `Final Score: ${score} / 30`;
+            feedbackEl.innerHTML = `<button onclick="restart()">🔄 Play Again</button>`;
+            loadingEl.style.display = 'none';
+            return;
+        }
+
+        loadingEl.style.display = 'none';
+        renderRound();
+    }, 500);
+}
+
+function restart() {
+    score = 0;
+    round = 1;
+    scoreEl.textContent = 0;
+    progressBar.style.width = '0%';
+    loadingEl.style.display = 'none';
+    renderRound();
+}
+
+/* INIT */
+renderRound();
+</script>
+</body>
+</html>

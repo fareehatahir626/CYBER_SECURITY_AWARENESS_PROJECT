@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Phishing Awareness Simulator</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: #333; 
+            min-height: 100vh; 
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: rgba(255, 255, 255, 0.95); 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+            padding: 30px; 
+            animation: fadeIn 1s ease-in; 
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        h1 { 
+            text-align: center; 
+            color: #4a4a4a; 
+            margin-bottom: 20px; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); 
+        }
+        .intro { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            font-size: 1.1em; 
+            color: #666; 
+        }
+        .progress-bar { 
+            width: 100%; 
+            height: 20px; 
+            background: #ddd; 
+            border-radius: 10px; 
+            margin-bottom: 20px; 
+            overflow: hidden; 
+        }
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(45deg, #27ae60, #229954); 
+            width: 0%; 
+            transition: width 0.5s; 
+        }
+        .timer { 
+            text-align: center; 
+            font-size: 1.2em; 
+            font-weight: bold; 
+            color: #e74c3c; 
+            margin-bottom: 20px; 
+        }
+        .email { 
+            border: 2px solid #e74c3c; 
+            padding: 20px; 
+            background: linear-gradient(45deg, #fff 0%, #f9f9f9 100%); 
+            margin-bottom: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+            transition: transform 0.3s; 
+        }
+        .email:hover { transform: scale(1.02); }
+        .email h3 { color: #e74c3c; margin-top: 0; }
+        .email a { 
+            color: #3498db; 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: color 0.3s; 
+        }
+        .email a:hover { color: #e74c3c; }
+        .buttons { text-align: center; margin: 20px 0; }
+        .button { 
+            padding: 12px 25px; 
+            margin: 0 10px; 
+            border: none; 
+            border-radius: 25px; 
+            cursor: pointer; 
+            font-size: 1em; 
+            font-weight: bold; 
+            transition: all 0.3s; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+        }
+        .danger { background: linear-gradient(45deg, #e74c3c, #c0392b); color: white; }
+        .danger:hover { background: linear-gradient(45deg, #c0392b, #a93226); transform: translateY(-2px); }
+        .safe { background: linear-gradient(45deg, #27ae60, #229954); color: white; }
+        .safe:hover { background: linear-gradient(45deg, #229954, #1e8449); transform: translateY(-2px); }
+        .nav-buttons { text-align: center; margin-bottom: 20px; }
+        .nav-button { 
+            padding: 8px 15px; 
+            margin: 0 5px; 
+            background: #3498db; 
+            color: white; 
+            border: none; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+        }
+        .nav-button:hover { background: #2980b9; }
+        .nav-button.active { background: #e74c3c; }
+        .nav-button.completed { background: #27ae60; }
+        #feedback { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            text-align: center; 
+            animation: slideIn 0.5s ease-out; 
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .red { background: rgba(231, 76, 60, 0.1); border: 1px solid #e74c3c; color: #c0392b; }
+        .green { background: rgba(39, 174, 96, 0.1); border: 1px solid #27ae60; color: #229954; }
+        .score { 
+            text-align: center; 
+            font-size: 1.2em; 
+            margin-bottom: 20px; 
+            color: #4a4a4a; 
+        }
+        .fake-form { 
+            display: none; 
+            margin-top: 20px; 
+            padding: 20px; 
+            background: #f8f9fa; 
+            border: 1px solid #ddd; 
+            border-radius: 10px; 
+        }
+        .fake-form input { 
+            display: block; 
+            width: 100%; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+        }
+        .fake-form button { 
+            background: #e74c3c; 
+            color: white; 
+            border: none; 
+            padding: 10px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+        .summary { 
+            display: none; 
+            text-align: center; 
+            margin-top: 30px; 
+            padding: 20px; 
+            background: rgba(52, 152, 219, 0.1); 
+            border-radius: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚨 Advanced Phishing Awareness Training Simulator 🚨</h1>
+        <p class="intro">Sharpen your defenses against cyber threats! Navigate scenarios, make quick decisions, and earn points. Time is ticking—stay vigilant!</p>
+        
+        <div class="score">Score: <span id="score">0</span> / 40</div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="timer">Time Left: <span id="timer">30</span>s</div>
+        
+        <div class="nav-buttons">
+            <button class="nav-button active" onclick="showScenario(0)">Bank Suspension</button>
+            <button class="nav-button" onclick="showScenario(1)">Amazon Gift Card</button>
+            <button class="nav-button" onclick="showScenario(2)">OTP Verification</button>
+            <button class="nav-button" onclick="showScenario(3)">Tech Support Scam</button>
+        </div>
+        
+        <div id="scenario-0" class="email">
+            <h3>Subject: Urgent: Your Bank Account Has Been Suspended</h3>
+            <p>Dear Valued Customer,</p>
+            <p>We have detected unusual activity on your account. To avoid permanent suspension, please verify your details immediately by clicking the link below and entering your login credentials.</p>
+            <p><a href="#" onclick="showFakeForm(0)">Verify Your Account Now</a></p>
+            <p>Thank you,<br>Bank Security Team</p>
+        </div>
+        
+        <div id="scenario-1" class="email" style="display: none;">
+            <h3>Subject: Congratulations! You've Won an Amazon Gift Card</h3>
+            <p>Hello Lucky Winner,</p>
+            <p>You've been selected for a $500 Amazon Gift Card! Claim it now before it expires. Just click the link and provide your shipping details.</p>
+            <p><a href="#" onclick="showFakeForm(1)">Claim Your Gift Card</a></p>
+            <p>Best,<br>Amazon Rewards Team</p>
+        </div>
+        
+        <div id="scenario-2" class="email" style="display: none;">
+            <h3>Subject: Your One-Time Password (OTP) for Login</h3>
+            <p>Hi,</p>
+            <p>Your OTP for account verification is: <strong>123456</strong>. Enter it on the secure page linked below to complete your login. Do not share this code with anyone.</p>
+            <p><a href="#" onclick="showFakeForm(2)">Verify Now</a></p>
+            <p>Regards,<br>Your Service Provider</p>
+        </div>
+        
+        <div id="scenario-3" class="email" style="display: none;">
+            <h3>Subject: Microsoft Alert: Your Computer is Infected</h3>
+            <p>Dear User,</p>
+            <p>Our systems have detected a virus on your device. Call our support line at 1-800-FAKE-HELP or click the link to download the fix tool immediately.</p>
+            <p><a href="#" onclick="showFakeForm(3)">Download Security Tool</a></p>
+            <p>Stay Safe,<br>Microsoft Tech Support</p>
+        </div>
+        
+        <div id="fake-form-0" class="fake-form">
+            <h4>Fake Login Page</h4>
+            <input type="text" placeholder="Username">
+            <input type="password" placeholder="Password">
+            <button onclick="submitFakeForm()">Login</button>
+        </div>
+        <div id="fake-form-1" class="fake-form">
+            <h4>Fake Claim Page</h4>
+            <input type="text" placeholder="Full Name">
+            <input type="text" placeholder="Address">
+            <button onclick="submitFakeForm()">Claim Gift</button>
+        </div>
+        <div id="fake-form-2" class="fake-form">
+            <h4>Fake Verification Page</h4>
+            <input type="text" placeholder="Enter OTP">
+            <button onclick="submitFakeForm()">Verify</button>
+        </div>
+        <div id="fake-form-3" class="fake-form">
+            <h4>Fake Download Page</h4>
+            <button onclick="submitFakeForm()">Download Tool</button>
+        </div>
+        
+        <p>What do you do?</p>
+        <div class="buttons">
+            <button class="button danger" onclick="handleChoice('click')">Click the Link / Follow Instructions</button>
+            <button class="button safe" onclick="handleChoice('report')">Report as Phishing</button>
+        </div>
+        
+        <div id="feedback"></div>
+        
+        <div class="summary" id="summary">
+            <h2>Training Complete!</h2>
+            <p>Your Final Score: <span id="final-score">0</span>/40</p>
+            <p id="performance"></p>
+            <p>Key Tips: Always verify URLs, avoid urgent requests, and use multi-factor authentication. Great job staying cyber-safe!</p>
+            <button class="button safe" onclick="resetSimulator()">Restart Training</button>
+        </div>
+    </div>
+    
+    <script>
+        let currentScenario = 0;
+        let score = 0;
+        let timerInterval;
+        let timeLeft = 30;
+        const scenarios = ['scenario-0', 'scenario-1', 'scenario-2', 'scenario-3'];
+        const forms = ['fake-form-0', 'fake-form-1', 'fake-form-2', 'fake-form-3'];
+        const feedbacks = {
+            click: [
+                '<div class="red">🚫 Bad choice! Clicking could install malware or steal your info. Always verify the sender and URL. (-5 points)</div>',
+                '<div class="red">🚫 Oops! Fake gift cards are a common scam. Check the email domain—real Amazon emails end in @amazon.com. (-5 points)</div>',
+                '<div class="red">🚫 Danger! OTPs should never be sent via email. Use official apps or SMS from trusted sources. (-5 points)</div>',
+                '<div class="red">🚫 Scam alert! Tech support scams prey on fear. Microsoft never asks for remote access unsolicited. (-5 points)</div>'
+            ],
+            report: [
+                '<div class="green">✅ Smart move! Reporting helps stop phishing. Look for urgent language and generic greetings as red flags. (+10 points)</div>',
+                '<div class="green">✅ Excellent! Unsolicited prizes are often phishing. Hover over links to reveal the true URL. (+10 points)</div>',
+                '<div class="green">✅ Well done! Legitimate OTPs come from secure channels, not email. Report suspicious ones. (+10 points)</div>',
+                '<div class="green">✅ Great job! Real support doesn\'t demand immediate action. Verify through official websites. (+10 points)</div>'
+            ]
+        };
+        
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 30;
+            document.getElementById('timer').textContent = timeLeft;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleChoice('timeout');
+                }
+            }, 1000);
+        }
+        
+        function showScenario(index) {
+            scenarios.forEach((id, i) => {
+                document.getElementById(id).style.display = i === index ? 'block' : 'none';
+            });
+            forms.forEach(id => document.getElementById(id).style.display = 'none');
+            document.querySelectorAll('.nav-button').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+            currentScenario = index;
+            document.getElementById('feedback').innerHTML = '';
+            startTimer();
+        }
+        
+        function showFakeForm(index) {
+            document.getElementById(`fake-form-${index}`).style.display = 'block';
+        }
+        
+        function submitFakeForm() {
+            alert('🚨 Warning: This is a simulation! In real life, entering info here would compromise your security. Always check URLs.');
+            handleChoice('click');
+        }
+        
+        function handleChoice(choice) {
+            clearInterval(timerInterval);
+            const feedback = document.getElementById('feedback');
+            feedback.innerHTML = feedbacks[choice][currentScenario];
+            if (choice === 'report') {
+                score += 10;
+            } else if (choice === 'click' || choice === 'timeout') {
+                score -= 5;
+            }
+            document.getElementById('score').textContent = score;
+            document.querySelector(`#scenario-${currentScenario}`).style.display = 'none';
+            document.querySelectorAll('.nav-button')[currentScenario].classList.add('completed');
+            updateProgress();
+            if (currentScenario === 3) {
+                showSummary();
+            } else {
+                setTimeout(() => showScenario(currentScenario + 1), 2000);
+            }
+        }
+        
+        function updateProgress() {
+            const progress = ((currentScenario + 1) / 4) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+        
+        function showSummary() {
+            document.getElementById('final-score').textContent = score;
+            const performance = score >= 30 ? 'Outstanding! You\'re a phishing pro.' : score >= 20 ? 'Good job! Keep practicing.' : 'Needs improvement—review the tips!';
+            document.getElementById('performance').textContent = performance;
+            document.getElementById('summary').style.display = 'block';
+        }
+        
+        function resetSimulator() {
+            score = 0;
+            currentScenario = 0;
+            document.getElementById('score').textContent = score;
+            document.getElementById('progress-fill').style.width = '0%';
+            document.getElementById('summary').style.display = 'none';
+            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('completed', 'active'));
+            document.querySelector('.nav-button').classList.add('active');
+            showScenario(0);
+        }
+        
+        // Initialize
+        showScenario(0);
+    </script>
+</body>
+</html>

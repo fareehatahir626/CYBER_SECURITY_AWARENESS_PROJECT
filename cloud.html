@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Security Awareness</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        body {
+            font-family: 'Orbitron', monospace;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            color: #00ffff;
+            min-height: 100vh;
+        }
+        h1, h2 {
+            color: #00ffff;
+            text-shadow: 0 0 15px #00ffff;
+        }
+        section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px #00ffff;
+            border: 2px solid #00ffff;
+        }
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #00ffff;
+            border: 1px solid #00ffff;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        nav a:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 20px #00ffff;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        code {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #00ffff;
+        }
+        .vulnerability {
+            color: #ff4500;
+            font-weight: bold;
+        }
+        .mitigation {
+            color: #32cd32;
+            font-weight: bold;
+        }
+        .quiz {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+            border: 1px solid #00ffff;
+        }
+        .quiz h3 {
+            color: #00ffff;
+        }
+        button {
+            background: #00ffff;
+            color: #000;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0099cc;
+        }
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html">Home</a></nav>
+    <h1>Cloud Security Awareness</h1>
+    <section>
+        <h2>What is Cloud Security</h2>
+        <p>Cloud security refers to a set of technologies, policies, and best practices that protect cloud-based systems, data, and infrastructure from cyber threats. Unlike traditional security measures, cloud security must address unique challenges such as data accessibility, third-party risks, compliance issues, and insider threats.Organizations must implement robust cloud security frameworks that include encryption, access controls, multi-factor authentication, and threat monitoring. However, technology alone is not enough—employees must be trained to recognize threats, adhere to security policies, and adopt best practices to prevent security breaches.</p>
+       <p>Role of employes in cloud security</p>
+    </p>Every employee, from entry-level staff to executives, interacts with cloud platforms daily. Whether accessing work emails, sharing files, or managing customer data, employees are actively engaging with cloud technology. Unfortunately, without proper training, they may inadvertently create vulnerabilities within an organization’s cloud environment.</p>
+
+    </section>
+    <section>
+        <h2>Common threats in cloud security</h2>
+        <p>1.Public sharing mistakes</p>
+        <p>Public sharing allows employees to easily send files, folders, and documents using links. While this is convenient, it is also very risky if not configured properly. Many companies accidentally expose confidential data because of small mistakes in how links and permissions are managed.One common mistake is using weak or predictable links. If a shared link contains simple numbers or short IDs, attackers can guess other valid links by changing the number. This can lead to an IDOR attack, where private files of other users become accessible without permission.</p>
+          <pre><code>
+Imagine you receive this link:
+https://cloudsite.com/share?file=1001
+            
+If an attacker changes it to:
+https://cloudsite.com/share?file=1002
+
+In this way attacker can access more files stored on cloud
+
+          </code></pre>
+        <p>2.Search Engine Exposure</p>
+        </p>One of the most overlooked risks in public sharing is search engine exposure. Even files meant for internal use can be accidentally discovered if search engines index them. This can happen when public links are not protected, when robots.txt or noindex tags are missing, or when filenames are predictable, like Employee-Salaries.pdf. Links shared in emails, forums, or chat platforms can also be indexed without realizing it. Such exposure can lead to data leaks, legal issues, and loss of trust. Companies should use secure, random links, remove sensitive metadata, and train employees to avoid careless sharing.</p>
+<code><pre>
+Using google dorking attacker can find sensitive files
+
+excel sheets:
+site:docs.google.com/spreadsheets "target.com"
+
+drive links:
+site:drive.google.com "example.com"
+
+open s3 buckets:
+site:s3.amazonaws.com "example.com"
+
+What Will Happen
+Google will return a list of pages on target.com (and its subdomains) that contain publicly exposed links.
+These links could contains accidentally shared publicly, like internal reports, employee lists, or other confidential data that someone mistakenly posted on a web page.
+
+</code></pre>
+<br>
+     <p>3.Expired Employee Access</p>
+     <p>When employees leave a company or change roles, failing to revoke their access to cloud systems can create serious risks. Even someone who is no longer part of the team may still have access to sensitive documents, internal reports, client data, or proprietary tools. This can lead to data theft, accidental leaks, or malicious misuse.</p>
+     <p>inactive accounts can be hijacked by attackers, as they are often not monitored closely. Employees who change roles or move to different departments may retain access to files they no longer need, violating the principle of least privilege and exposing confidential data.</p>
+
+     <p>4.Hidden Data in Files </p>
+     <p>Many files contain hidden information called metadata, which users usually do not see. This can include details such as the author’s name, device type, software used, location, date created, and even previous edits. For example, photos may store GPS location, and Word or PDF files may store employee names or company system details. Attackers can use this information for social engineering, phishing, or targeted attacks. In some cases, malicious data or scripts can also be hidden inside files to spread malware. To reduce this risk, companies should remove unnecessary metadata before sharing files, restrict file types, and scan all uploads for threats.</p>
+    </section>
+    <section>
+        <h2>Best Practices for Cloud Security</h2>
+        <p>1.Enable Multi-Factor Authentication (MFA)</p>
+        <p>Even a strong password can be compromised, so MFA adds an extra layer of security. MFA requires two or more factors to verify identity, typically something the user knows (password) and something they have (a one-time code via app, SMS, or hardware token). This greatly reduces the risk of account takeover and should be mandatory for all cloud accounts, especially for administrative users.</p>
+    
+        <p>2.Follow the least-privilege principle</p>
+        <p>The principle of least privilege (PoLP) is a concept in IT security that demands every user and process should have only the minimal access required to perform their functions. By adhering to PoLP, the potential damage from breaches or insider threats is minimized. Unauthorized data access or system changes become significantly more challenging. </p>
+  
+        <p>3.Data Encryption</p>
+        <p>Encrypting sensitive data ensures it remains protected even if unauthorized access occurs. Data should be encrypted at rest (stored in servers) and in transit (when moving over networks). Corporates should use strong encryption standards and ensure encryption keys are securely managed. Cloud providers often offer built-in encryption tools, but organizations must verify and enforce their use.</p>
+        
+        <p>4.Understand the shared responsibility model</p>
+        <p>Cloud security is a two-way street, requiring collaboration between cloud providers and users to maintain a secure environment. While providers handle the security of the cloud infrastructure, users are responsible for securing the data, applications, and access controls within their cloud environments. Understanding these roles is foundational to a strong cloud security strategy.</p>
+        
+        <p>Learn your provider’s specific responsibilities—these often include securing hardware, networking, and foundational infrastructure. For example, AWS manages the physical servers and virtualization layers, while users must configure their data protection and application-level security.</p>
+        
+    </section>
+   
+    <script>
+        function checkAnswer(quizId, answer) {
+            const results = {
+                pkce: 'Proof Key for Code Exchange',
+                shodan: 'Shodan',
+                least: 'Least Privilege',
+                hmac: 'HMAC-SHA256'
+            };
+            const resultDiv = document.getElementById('result' + (Object.keys(results).indexOf(quizId) + 1));
+            if (answer === results[quizId]) {
+                resultDiv.innerHTML = '<span style="color: #32cd32;">Correct! Well done, hacker.</span>';
+            } else {
+                resultDiv.innerHTML = '<span style="color: #ff4500;">Incorrect. Try again, noob.</span>';
+            }
+        }
+    </script>
+</body>
+</html>

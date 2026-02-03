@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physical Security</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        body {
+            font-family: 'Orbitron', monospace;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            color: #00ffff;
+            min-height: 100vh;
+        }
+        h1, h2 {
+            color: #00ffff;
+            text-shadow: 0 0 15px #00ffff;
+        }
+        section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px #00ffff;
+            border: 2px solid #00ffff;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        button {
+            padding: 12px;
+            margin: 5px;
+            background: rgba(0, 255, 255, 0.2);
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px #00ffff;
+        }
+        button:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 20px #00ffff;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #00ffff;
+            border: 1px solid #00ffff;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        nav a:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 20px #00ffff;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        code {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #00ffff;
+        }
+        .vulnerability {
+            color: #ff4500;
+            font-weight: bold;
+        }
+        .mitigation {
+            color: #32cd32;
+            font-weight: bold;
+        }
+        .advanced {
+            color: #ffa500;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html">Home</a></nav>
+    <h1>Physical Security Awareness</h1>
+
+<section>
+    <h2>Why Physical Security Matters in Cybersecurity</h2>
+    <p>
+        Even the most secure networks are vulnerable if attackers gain physical access.
+        Corporate offices house critical assets such as servers, workstations,
+        network devices, and confidential documents.
+    </p>
+
+    <p>A single physical breach can result in:</p>
+    <ul>
+        <li>Data theft or data leaks</li>
+        <li>Malware and ransomware installation</li>
+        <li>Network compromise</li>
+        <li>Business disruption and financial loss</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>Common Physical Security Threats in Corporate Environments</h2>
+
+    <h3>Unauthorized Access</h3>
+    <p>
+        Havving no physicial security or Access control system may allow Attackers to enter offices by tailgating, using fake identities,
+        or exploiting unlocked doors.for ex.Attacker may get access to office through open fire exit or store room.
+    </p>
+    <p><strong>Cyber Impact:</strong> Direct access to systems,credential theft and may allow attacker to cunduct reconnicense.</p>
+
+    <h3>Device Theft and Loss</h3>
+    <p>
+        Laptops, mobile phones, and external storage devices are common targets for attackers. 
+        Imagine a scenario in which an attacker visits an office as a guest, posing as an interested business partner or potential collaborator.
+        By exploiting trust and gaining physical access to the premises, the attacker steals office devices such as laptops, smartphones, or external storage media, potentially leading to data
+    </p>
+    <p><strong>Cyber Impact:</strong> Exposure of sensitive corporate and customer data.</p>
+
+    <h3>Insider Threats</h3>
+    <p>
+        Employees—intentionally or unintentionally—can compromise security.
+    </p>
+    <p><strong>Cyber Impact:</strong> Data leaks, sabotage, or unauthorized system access.</p>
+
+    <h3>Unsecured Server Rooms</h3>
+    <p>
+       Server rooms without proper access control or monitoring represent high-risk areas within an organization.
+       When physical access is not restricted through mechanisms such as key cards, biometric authentication, or locked entry systems, unauthorized individuals can easily enter these sensitive spaces.
+    </p>
+    <p><strong>Cyber Impact:</strong> Complete network compromise and system shutdown.</p>
+</section>
+
+    <section>
+         <h2>Physical Security Controls and Best Practices</h2>
+
+    <h3>Access Control Measures</h3>
+    <ul>
+        Modern access control systems ensure only authorized personnel can enter secure spaces. To gain access, they must authenticate their identity using a secure credential, such as a smart card, mobile credential, or biometric factor.
+    </ul>
+
+    <h3> Install Intrusion Detection Systems</h3>
+    <ul>
+        Intrusion detection systems detect unauthorized access, break-ins, or other security breaches in near real-time. Integrating alarms with surveillance and access control systems ensures full situational awareness and immediate response and minimizes losses.
+    </ul>
+
+    <h3>Conduct Regular Security Audits</h3>
+    <ul>
+        Frequent Physical and cybersecurity audits are vital for identifying vulnerabilities and ensuring protocols remain effective. Assessing entry points, reviewing access logs, and testing systems for compliance are key steps in this process.
+    </ul>
+
+    <h3>Implement Emergency Response Plans</h3>
+    <ul>
+       Well-documented emergency response plans ensure businesses are prepared for crises, including security breaches, active threats, or natural disasters. Regular drills and training sessions help employees respond effectively and minimize risk.
+    </ul>
+
+    <h2>Role of Employee Awareness</h2>
+    <p>
+        Employees are the <strong>first line of defense</strong> in physical and cyber security.according to micromindercs.com 90% of Cyber Attacks are Human Error.
+        Proper awareness reduces human error and insider risks.
+    </p>
+    <ul>
+        <li>Wear ID badges at all times</li>
+        <li>Challenge unknown individuals</li>
+        <li>Report suspicious activities</li>
+        <li>Lock systems before leaving desks</li>
+        <li>Avoid using unknown USB devices</li>
+    </ul>
+    </section>
+    
+ 
+    <section>
+        <h2>Game: Secure Access Choice</h2>
+        <a href="game.html">Click on it to play a game</a>
+    </section>
+
+    <script>
+        function checkPhysRisk() {
+            const scenario = document.getElementById('physRisk').value.toLowerCase();
+            let res = 'Low Risk';
+            if (scenario.includes('unlocked') || scenario.includes('tailgate')) res = 'High Risk - Secure immediately!';
+            document.getElementById('physRiskResult').textContent = res;
+        }
+        function selectPhys(choice) {
+            document.getElementById('physGame').textContent = choice === 'biometric' ? 'Good! Secure access.' : 'Bad choice! Vulnerable.';
+        }
+        function simulateIntrusion() {
+            const type = document.getElementById('intrusionType').value.toLowerCase();
+            let outcome = 'Intrusion failed';
+            if (type.includes('lockpick')) outcome = 'Intrusion successful - Upgrade locks!';
+            if (type.includes('social')) outcome = 'Intrusion successful - Train staff!';
+            document.getElementById('intrusionResult').textContent = outcome;
+        }
+    </script>
+</body>
+</html>

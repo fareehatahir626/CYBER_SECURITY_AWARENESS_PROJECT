@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Awareness Hub</title>
+    <!-- Font Awesome for reliable icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        /* ===== GLOBAL FIX FOR BOTTOM SCROLLBAR ===== */
+        html, body { 
+            overflow-x: hidden; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            padding: 60px 0 80px;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+            color: #00ffff;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: url('https://source.unsplash.com/featured/?cyber,hacker') no-repeat center center;
+            background-size: cover;
+            opacity: 0.3;
+            z-index: -2;
+        }
+
+        .matrix-rain {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .scan-line {
+            position: fixed;
+            left: 0;
+            width: 100vw;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: scan 3s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes scan { 
+            from { top: 0; } 
+            to { top: 100%; } 
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 50px;
+            border-radius: 15px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 30px #00ffff, 0 0 60px #ff00ff;
+            max-width: 1200px;
+            width: 90%;
+            margin: 20px auto;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3.2em;
+            text-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .terminal-prompt {
+            color: #00ff00;
+            margin-bottom: 30px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink { 
+            50% { opacity: 0; } 
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            overflow-x: hidden;
+        }
+
+        .category {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 25px;
+            width: 180px;
+            text-align: center;
+            transition: 0.3s ease;
+            transform-origin: center;
+        }
+
+        .category:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px #00ffff;
+        }
+
+        /* Disable hover on touch devices */
+        @media (hover: none) {
+            .category:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
+        .category i {
+            font-size: 70px;
+            margin-bottom: 15px;
+            color: #ff0; /* Back to original dimmed yellow */
+            box-shadow: 0 0 3px #ff0, 0 0 6px #ff0, 0 0 12px #ff0; /* Dimmed glow like shield */
+        }
+
+        a { 
+            text-decoration: none; 
+            color: inherit; 
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.8em;
+            text-shadow: 0 0 5px #00ffff;
+        }
+
+        /* ===== NEON SHIELD ICON ===== */
+        .neon-icon.shield {
+            position: relative;
+            width: 100%;
+            max-width: 60px;
+            aspect-ratio: 60/75; /* maintain shape */
+            color: #ff0;
+            margin: 0 auto 10px;
+        }
+
+        .neon-icon.shield.dimmed div {
+            box-shadow: 0 0 3px currentColor,
+                        0 0 6px currentColor,
+                        0 0 12px currentColor;
+        }
+
+        .shield .shape {
+            width: 100%;
+            height: 100%;
+            border: 3px solid currentColor;
+            border-radius: 35% 35% 50% 50% / 20% 20% 60% 60%;
+            position: relative;
+        }
+
+        .shield .inner {
+            width: 50%;
+            height: 50%;
+            border: 3px solid currentColor;
+            border-radius: 20% 20% 50% 50% / 10% 10% 50% 50%;
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* ===== RESPONSIVE BREAKPOINTS ===== */
+        @media (max-width: 1024px) { /* Tablets */
+            h1 { font-size: 2.8em; }
+            .overlay { padding: 40px; }
+            .category { width: 160px; }
+            .category i { font-size: 60px; }
+            .neon-icon.shield { max-width: 55px; }
+            .categories { gap: 25px; }
+        }
+
+        @media (max-width: 768px) { /* Small tablets/small laptops */
+            h1 { font-size: 2.4em; }
+            .overlay { padding: 30px; }
+            .category { width: 140px; padding: 20px; }
+            .category i { font-size: 50px; }
+            .neon-icon.shield { max-width: 50px; }
+            .categories { gap: 20px; }
+        }
+
+        @media (max-width: 480px) { /* Mobile */
+            h1 { font-size: 2em; }
+            p { font-size: 1em; }
+            .overlay { padding: 20px; width: 95%; }
+            .categories {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            .category { width: 85%; padding: 15px; }
+            .category i { font-size: 40px; }
+            .neon-icon.shield { max-width: 45px; }
+            footer { font-size: 0.7em; margin-top: 30px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="matrix-rain" id="matrix"></div>
+    <div class="scan-line"></div>
+
+    <div class="overlay">
+        <h1>Cybersecurity Awareness Hub</h1>
+        <p>Navigate the digital shadows. Stay vigilant, stay secure.</p>
+        <div class="terminal-prompt">> Initializing security protocols...</div>
+
+        <div class="categories">
+            <a href="phishing.html">
+                <div class="category">
+                    <i class="fas fa-envelope" aria-hidden="true"></i> <!-- Changed to envelope for phishing -->
+                    <h3>Phishing</h3>
+                </div>
+            </a>
+
+            <a href="password.html">
+                <div class="category">
+                    <i class="fas fa-lock" aria-hidden="true"></i> <!-- Password icon -->
+                    <h3>Password Security</h3>
+                </div>
+            </a>
+
+            <a href="ransomware.html"> <!-- Fixed typo: ransomeware -> ransomware -->
+                <div class="category">
+                    <i class="fas fa-skull-crossbones" aria-hidden="true"></i> <!-- Ransomware icon (skull) -->
+                    <h3>Ransomware</h3>
+                </div>
+            </a>
+
+            <!-- DIMMED NEON SHIELD AS PHYSICAL SECURITY -->
+            <a href="physical.html">
+                <div class="category">
+                    <div class="neon-icon shield dimmed" aria-hidden="true">
+                        <div class="shape"></div>
+                        <div class="inner"></div>
+                    </div>
+                    <h3>Physical Security</h3>
+                </div>
+            </a>
+
+            <a href="cloud.html">
+                <div class="category">
+                    <i class="fas fa-cloud" aria-hidden="true"></i> <!-- Cloud icon -->
+                    <h3>Cloud Security</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Cybersecurity Awareness Hub | Secure your digital frontier
+    </footer>
+
+    <script>
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        document.getElementById('matrix').appendChild(canvas);
+
+        function resize() { 
+            canvas.width = window.innerWidth; 
+            canvas.height = window.innerHeight; 
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const fontSize = 16;
+        let drops = [];
+
+        function init() {
+            const columns = Math.floor(canvas.width / fontSize);
+            drops = Array(columns).fill(1);
+        }
+        init();
+
+        function draw() {
+            ctx.fillStyle = "rgba(0,0,0,0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#00ffff";
+            ctx.font = fontSize + "px monospace";
+
+            drops.forEach((y, i) => {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, y * fontSize);
+                if (y * fontSize > canvas.height && Math.random() > 0.975) { 
+                    drops[i] = 0; 
+                }
+                drops[i]++;
+            });
+        }
+
+        // Throttle on mobile for performance
+        const isMobile = window.innerWidth <= 768;
+        const interval = isMobile ? 50 : 35;
+        setInterval(draw, interval);
+
+        // Error handling for canvas
+        if (!ctx) {
+            console.warn("Canvas not supported; matrix rain disabled.");
+        }
+    </script>
+</body>
+</html>
